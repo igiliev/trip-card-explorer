@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useMemo, useTransition, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { TripGrid } from './components/TripGrid/TripGrid';
 import { TripModal } from './components/TripModal/TripModal';
 import { TripControls } from './components/TripControls/TripControls';
@@ -14,11 +14,11 @@ function App() {
     const closeModal = () => setSelectedTrip(null);
     const clearSearch = () => setQuery("");
 
-    const handleMoreInfo = (trip) => setSelectedTrip(trip);
+    const handleMoreInfo = useCallback((trip) => setSelectedTrip(trip), []);
 
     const visibleTrips = useMemo(() => {
       const q = query.trim().toLowerCase();
-      const filtered = q ? trips.filter((t) => t.name.toLowerCase().includes(q.toLowerCase())) : trips;
+      const filtered = q ? trips.filter((t) => t.name.toLowerCase().includes(q)) : trips;
       const sorted = sortByRating ? [...filtered].sort((a, b) => b.rating - a.rating) : filtered;
 
       return sorted;

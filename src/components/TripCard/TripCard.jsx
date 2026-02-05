@@ -1,23 +1,41 @@
-import { memo } from "react";
+import { memo, useState, useEffect } from "react";
+import { useInView } from "../../hooks/useInView";
 import "./TripCard.scss";
 
 export const TripCard = memo(function TripCard({ trip, onMoreInfo }) {
+  const [ref, inView] = useInView();
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [imgFailed, setImgFailed] = useState(false);
 
-  const handleImgError = (e) => {
-    e.currentTarget.onerror = null;
-    e.currentTarget.src = "/images/placeholder.jpg";
-    e.currentTarget.alt = `${trip.name} (image unavailable)`;
-  };
+  useEffect(() => {
+    setImgLoaded(false);
+    setImgFailed(false);
+  }, [trip.id]);
+
+  const src = imgFailed ? "/images/placeholder.jpg" : trip.image;
 
   return (
-    <article className="trip-card">
-      <img
-        className="trip-card__image"
-        src={trip.image}
-        alt={trip.name}
-        loading="lazy"
-        onError={handleImgError}
-      />
+    <article ref={ref} className="trip-card">
+      <div className="trip-card__media">
+        {!imgLoaded && (
+          <div className="trip-card__skeleton" />
+        )}
+
+        {inView && (
+          <img
+            className={`trip-card__image ${imgLoaded ? "is-loaded" : ""}`}
+            src={src}
+            alt={trip.name}
+            decoding="async"
+            loading="lazy"
+            onLoad={() => setImgLoaded(true)}
+            onError={() => {
+              setImgFailed(true);
+              setImgLoaded(false);
+            }}
+          />
+        )}
+      </div>
 
       <div className="trip-card__body">
         <div className="trip-card__header">
@@ -27,7 +45,10 @@ export const TripCard = memo(function TripCard({ trip, onMoreInfo }) {
 
         <p className="trip-card__desc">{trip.description}</p>
 
-        <button className="trip-card__button" type="button" onClick={() => onMoreInfo(trip)}>
+        <button
+          className="trip-card__button"
+          onClick={() => onMoreInfo(trip)}
+        >
           More Info
         </button>
       </div>

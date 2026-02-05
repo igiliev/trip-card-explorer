@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import "./TripModal.scss";
 
 export const TripModal = ({ trip, onClose }) => {
+    
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") onClose();
