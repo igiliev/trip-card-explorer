@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export function useInView(options = {}) {
-  const ref = useRef(null);
+  const [node, setNode] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  const observerRef = useRef(null);
 
   const {
     root = null,
@@ -10,24 +12,32 @@ export function useInView(options = {}) {
     threshold = 0.1,
   } = options;
 
+  const ref = useCallback((el) => {
+    setNode(el);
+  }, []);
+
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (!node) return;
+
+    setIsVisible(false);
+
+    if (observerRef.current) observerRef.current.disconnect();
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.unobserve(el);
+          observer.unobserve(entry.target);
         }
       },
       { root, rootMargin, threshold }
     );
 
-    observer.observe(el);
+    observer.observe(node);
+    observerRef.current = observer;
 
     return () => observer.disconnect();
-  }, [root, rootMargin, threshold]); // stable primitive deps only
+  }, [node, root, rootMargin, threshold]);
 
   return [ref, isVisible];
 }
