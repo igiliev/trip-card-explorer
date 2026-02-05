@@ -10,51 +10,51 @@ Users can search, sort, and view detailed trip information in a modal.
 
 The project demonstrates:
 
-component architecture
+* component architecture
 
-clean React hooks usage
+* clean React hooks usage
 
-async data handling
+* async data handling
 
-UI/UX decision making
+* UI/UX decision making
 
-performance awareness
+* performance awareness
 
 ## Features
 
 ### Data Fetching & State
 
-Fetches trip data from a local data.json
+* Fetches trip data from a local data.json
 
-Custom useTrips hook manages:
+* Custom useTrips hook manages:
 
-loading state
+* loading state
 
-error handling
+* error handling
 
-data storage
+* data storage
 
-Graceful handling of async failures
+* Graceful handling of async failures
 
 ### Trip Grid & Cards
 
 Responsive grid layout:
 
-3 columns (desktop)
+* 3 columns (desktop)
 
-2 columns (tablet)
+* 2 columns (tablet)
 
-1 column (mobile)
+* 1 column (mobile)
 
 Each card displays:
 
-image
+* image
 
-title
+* title
 
-rating
+* rating
 
-short description
+* short description
 
 Skeleton loaders shown while images load
 
@@ -70,11 +70,11 @@ Modal rendered using React Portal
 
 Modal features:
 
-closes on Escape
+* closes on Escape
 
-closes on backdrop click
+* closes on backdrop click
 
-disables background scrolling
+* disables background scrolling
 
 Placeholder image used if modal image fails
 
@@ -85,13 +85,13 @@ Placeholder image used if modal image fails
 A custom useInView hook loads images only when they are near the viewport.
 This improves performance by:
 
-reducing initial network requests
+* reducing initial network requests
 
-preventing scroll jank
+* preventing scroll jank
 
-preloading images before visible
+* preloading images before visible
 
-displaying skeleton placeholders while loading
+* displaying skeleton placeholders while loading
 
 ## Running the Project
 
