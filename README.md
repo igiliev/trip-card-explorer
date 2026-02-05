@@ -1,70 +1,116 @@
-# Getting Started with Create React App
+# Trip Explorer — React Mini App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A small React application that displays a list of travel destinations using a clean component architecture, responsive layout, and modern UI patterns.
+The project focuses on readability, performance, and thoughtful user experience.
 
-## Available Scripts
+## Overview
 
-In the project directory, you can run:
+This app fetches trip data from a local JSON file and displays it as a responsive grid of cards.
+Users can search, sort, and view detailed trip information in a modal.
 
-### `npm start`
+The project demonstrates:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+component architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+clean React hooks usage
 
-### `npm test`
+async data handling
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+UI/UX decision making
 
-### `npm run build`
+performance awareness
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Data Fetching & State
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Fetches trip data from a local data.json
 
-### `npm run eject`
+Custom useTrips hook manages:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+loading state
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+error handling
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+data storage
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Graceful handling of async failures
 
-## Learn More
+### Trip Grid & Cards
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Responsive grid layout:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3 columns (desktop)
 
-### Code Splitting
+2 columns (tablet)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1 column (mobile)
 
-### Analyzing the Bundle Size
+Each card displays:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+image
 
-### Making a Progressive Web App
+title
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+rating
 
-### Advanced Configuration
+short description
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Skeleton loaders shown while images load
 
-### Deployment
+Broken image URLs automatically replaced with placeholder
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Images loaded using IntersectionObserver for better performance
 
-### `npm run build` fails to minify
+### Modal Details
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Clicking More Info opens modal with full trip details
+
+Modal rendered using React Portal
+
+Modal features:
+
+closes on Escape
+
+closes on backdrop click
+
+disables background scrolling
+
+Placeholder image used if modal image fails
+
+## Performance & UX Decisions
+
+### Lazy Image Loading (IntersectionObserver)
+
+A custom useInView hook loads images only when they are near the viewport.
+This improves performance by:
+
+reducing initial network requests
+
+preventing scroll jank
+
+preloading images before visible
+
+displaying skeleton placeholders while loading
+
+## Running the Project
+
+In the project directory:
+
+npm install
+
+Installs all dependencies.
+
+npm start
+
+Runs the app in development mode.
+Open http://localhost:3000
+ to view it in the browser.
+
+npm run build
+
+Builds the app for production to the build folder.
+
+## Notes
+
+This project emphasizes clean architecture, maintainable React patterns, and thoughtful user experience rather than heavy external libraries or overengineering.
